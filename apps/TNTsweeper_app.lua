@@ -161,7 +161,7 @@ laptop.register_app("tntsweeper", {
 		local sweeper = get_sweeper(data)
 		local config = level_config[sweeper.data.level]
 		for field, _ in pairs(fields) do
-			if field:sub(1,6) ==  'field:' then
+			if field:sub(1,6) == 'field:' then
 				local sel_w, sel_h
 				for str in field:gmatch("([^:]+)") do
 					if str ~= 'field' then

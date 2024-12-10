@@ -3,7 +3,7 @@ laptop.register_app("removable", {
 	app_icon = "laptop_removable.png",
 	app_info = "Interface with Removable Media",
 	formspec_func = function(app, mtos)
-		local formspec = 
+		local formspec =
 				"list[nodemeta:"..mtos.pos.x..','..mtos.pos.y..','..mtos.pos.z..";main;0,0.3;1,1;]" ..
 				"list[current_player;main;0,4.85;8,1;]" ..
 				"list[current_player;main;0,6.08;8,3;8]" ..

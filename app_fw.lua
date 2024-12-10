@@ -7,7 +7,7 @@ laptop.class_lib.app = app_class
 -- internally used: get current app formspec
 function app_class:get_formspec()
 	local app_result
-	if  self.formspec_func then
+	if self.formspec_func then
 		app_result = self.formspec_func(self, self.os)
 	else
 		app_result = ""

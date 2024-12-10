@@ -143,7 +143,7 @@ laptop.register_view('os:select_file', {
 				param.selected_file_name = param.files_list[event.row].name
 			end
 
-		elseif fields.select and param.selected_file_name and param.selected_file_name ~= "" 
+		elseif fields.select and param.selected_file_name and param.selected_file_name ~= ""
 				and param.selected_disk_name and param.selected_disk_name ~= "" then
 			param.prefix = param.prefix or ""
 			local pass_fields = {

@@ -11,7 +11,7 @@ local hexcolors = {
 		purple = "800080",
 		teal = "008080",
 		silver = "C0C0C0",
-		
+
 		gray = "808080",
 		red = "FF0000",
 		lime = "00FF00",
@@ -39,10 +39,10 @@ laptop.register_app("painting", {
 		local data = mtos.bdev:get_app_storage('system', 'painting')
 		data.files = data.files or {}
 		if not data.brush_color then
-			data.brush_color = "000000" 
+			data.brush_color = "000000"
 		end
 		if not data.resolution then
-			data.resolution = 16 
+			data.resolution = 16
 		end
 		if not data.grid then
 			data.grid = {}
@@ -123,7 +123,7 @@ laptop.register_app("painting", {
 			local store = mtos.bdev:get_app_storage(data.selected_disk_name, store_area)
 			if store then
 				data.grid = store[data.selected_file_name].content
-	  	  	  	  data.resolution = #data.grid
+				data.resolution = #data.grid
 			end
 		elseif fields.save then
 			mtos:select_file_dialog({
@@ -144,12 +144,12 @@ laptop.register_app("painting", {
 		elseif fields.new_16 then
 			data.selected_disk_name = nil
 			data.selected_file_name = nil
-			data.resolution = 16 
+			data.resolution = 16
 			data.grid = nil
 		elseif fields.new_32 then
 			data.selected_disk_name = nil
 			data.selected_file_name = nil
-			data.resolution = 32 
+			data.resolution = 32
 			data.grid = nil
 		elseif fields.print then
 			mtos:print_picture_dialog({
@@ -180,7 +180,7 @@ laptop.register_app("painting", {
 					local key = "pixel_"..y.."_"..x
 					if fields[key] then
 						local line = data.grid[y] or {}
-						  line[x] = data.brush_color..""
+						line[x] = data.brush_color..""
 						return
 					end
 				end

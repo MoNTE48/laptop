@@ -28,7 +28,7 @@ laptop.register_app("mail", {
 		local formspec =
 				mtos.theme:get_tableoptions()..
 				"tablecolumns[" ..
-						"image,align=center,1="..mtos.theme:get_texture('laptop_mail.png')..",2="..mtos.theme:get_texture('laptop_mail_read.png')..";"..  --icon column
+						"image,align=center,1="..mtos.theme:get_texture('laptop_mail.png')..",2="..mtos.theme:get_texture('laptop_mail_read.png')..";".. --icon column
 						"color;"..	-- subject and date color
 						"text;".. -- subject
 						"text,padding=1.5;".. -- sender
@@ -60,9 +60,9 @@ laptop.register_app("mail", {
 
 				-- set sender or receiver
 				if account.selected_box == "inbox" then
-					formspec = formspec..minetest.formspec_escape(message.sender or "") ..","  -- body
+					formspec = formspec..minetest.formspec_escape(message.sender or "") .."," -- body
 				else
-					formspec = formspec..minetest.formspec_escape(message.receiver or "") ..","  -- body
+					formspec = formspec..minetest.formspec_escape(message.receiver or "") .."," -- body
 				end
 
 				-- set date
@@ -162,7 +162,7 @@ laptop.register_app("mail", {
 			account.selected_box = "inbox"
 			account.selectedmessage = nil
 		elseif account.selected_index then
-			if fields.delete then 
+			if fields.delete then
 				table.remove(box, account.selected_index)
 				account.selectedmessage = nil
 			elseif fields.reply then

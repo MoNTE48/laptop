@@ -8,8 +8,8 @@ laptop.recipe_compat = {
 	fpga = '-unknown-', programmer = '-unknown-', delayer = '-unknown-',
 	controller = '-unknown-', light_red = '-unknown-', light_green = '-unknown-',
 	light_blue = '-unknown-',
-  plastic = '-unknown-', motor = '-unknown-',
-  battery = '-unknown-', lv_transformer = '-unknown-',
+	plastic = '-unknown-', motor = '-unknown-',
+	battery = '-unknown-', lv_transformer = '-unknown-',
 }
 
 local rc = laptop.recipe_compat
@@ -75,7 +75,7 @@ if minetest.get_modpath('mesecons_lightstone') then
 end
 
 if minetest.get_modpath('basic_materials') then
-  rc.plastic = 'basic_materials:plastic_sheet'
+	rc.plastic = 'basic_materials:plastic_sheet'
 	rc.motor = 'basic_materials:motor'
 end
 

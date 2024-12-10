@@ -464,8 +464,8 @@ function realchess.move(data, pos, from_list, from_index, to_list, to_index, _, 
 	end
 
 	if pieceTo:sub(11,14) == "king" then
-		data.messageWhite =  playerName.." won the game."
-		data.messageBlack =  playerName.." won the game."
+		data.messageWhite = playerName.." won the game."
+		data.messageBlack = playerName.." won the game."
 		data.winner = thisMove
 	end
 
@@ -617,7 +617,7 @@ register_piece("king")
 			data.messageWhite = nil
 			data.messageOther = nil
 
-			local ret = realchess.move(data, mtos.pos, from_list, from_index, to_list, to_index, count, player), false  --reshow = true
+			local ret = realchess.move(data, mtos.pos, from_list, from_index, to_list, to_index, count, player), false --reshow = true
 			minetest.after(0, mtos.set_app, mtos, mtos.sysram.current_app) -- refresh screen
 			return ret
 		end,

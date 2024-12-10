@@ -50,9 +50,9 @@ laptop.register_hardware("laptop:core", {
 				fixed = {
 					{-0.4375, -0.5, -0.4375, 0.4375, -0.4375, 0.375}, -- base_open
 					{-0.4375, -0.4375, 0.375, 0.4375, 0.3125, 0.4375}, -- sc_open
-				  }
-			       }
-			    },
+				}
+			}
+		},
 		["closed"] = {
 			hw_state = "power_off",
 			tiles = {
@@ -93,7 +93,6 @@ laptop.register_hardware("laptop:printer", {
 	custom_launcher = "printer_launcher",
 	hw_capabilities = {"hdd"},
 	node_defs = {
-
 		["powersave"] = {
 			hw_state = "power_off",
 			_power_off_seq = "off",
@@ -140,9 +139,9 @@ laptop.register_hardware("laptop:printer", {
 					{-0.375, -0.5, -0.125, 0.375, -0.125, 0.3125}, -- core
 					{-0.25, -0.5, -0.375, 0.25, -0.4375, -0.125}, -- tray
 					{-0.25, -0.125, 0.25, 0.25, 0.125, 0.3125}, -- charger
-				  }
-			       }
-			    },
+				}
+			}
+		},
 		["off"] = {
 			hw_state = "power_off",
 			tiles = {

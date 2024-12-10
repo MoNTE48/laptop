@@ -1,4 +1,3 @@
-
 laptop.register_app("launcher", {
 	app_name = "Main launcher",
 	app_info = "Desktop Enviroment",

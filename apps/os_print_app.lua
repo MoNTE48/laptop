@@ -58,7 +58,7 @@ local function sync_stack_values(mtos)
 		if idata.stack then
 			mtos.sysdata.out_stack_save = idata.stack:to_string()
 		else
-			mtos.sysdata.out_stack_save  = nil
+			mtos.sysdata.out_stack_save = nil
 		end
 	end
 end
@@ -132,7 +132,7 @@ laptop.register_app("printer_launcher", {
 	allow_metadata_inventory_put = function(app, mtos, player, listname, index, stack)
 		if mtos.sysdata.selected_view == 'output' then
 			-- nothing
-		elseif  mtos.sysdata.selected_view == 'paper' and stack:get_name() == 'default:paper' then
+		elseif mtos.sysdata.selected_view == 'paper' and stack:get_name() == 'default:paper' then
 			return stack:get_stack_max()
 		elseif mtos.sysdata.selected_view == 'dye' and stack:get_name() == 'dye:black' then
 			return stack:get_stack_max()
@@ -190,10 +190,10 @@ local function get_printer_info(pos)
 				nodename = hw_os.node.name,
 			}
 		if not minetest.registered_items[hw_os.node.name].groups.laptop_printer then
-			printer.status =  'off'
+			printer.status = 'off'
 --			printer.status_color = '#FF0000'
 		elseif not hw_os.sysram.current_app or hw_os.sysram.current_app == 'os:power_off' then
-			printer.status =  'disabled'
+			printer.status = 'disabled'
 --			printer.status_color = '#FF0000'
 		else
 			printer.status = 'online'
