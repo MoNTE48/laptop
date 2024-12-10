@@ -6,6 +6,7 @@ laptop.register_hardware("laptop:core", {
 	hw_capabilities = { 'hdd', 'usb', 'net' },
 	battery_capacity = 80000,
 	inventory_image = "laptop_lap_car_item.png",
+	use_texture_alpha = "clip",
 	node_defs = {
 		["open"] = {
 			hw_state = "power_off",
@@ -92,6 +93,7 @@ laptop.register_hardware("laptop:printer", {
 	custom_theme = "PrintOS",
 	custom_launcher = "printer_launcher",
 	hw_capabilities = {"hdd"},
+	use_texture_alpha = "clip",
 	node_defs = {
 		["powersave"] = {
 			hw_state = "power_off",
@@ -182,6 +184,7 @@ laptop.register_hardware("laptop:cube", {
 	os_version = '5.02',
 	sequence = { "off", "on"},
 	hw_capabilities = { "hdd", "floppy", "net", "liveboot" },
+	use_texture_alpha = "clip",
 	node_defs = {
 		["on"] = {
 			hw_state = "power_on",
@@ -249,6 +252,7 @@ laptop.register_hardware("laptop:fruit_zero", {
 	infotext = "Fruit Zero",
 	sequence = { "off", "on"},
 	custom_theme = "Magma",
+	use_texture_alpha = "clip",
 	node_defs = {
 		["on"] = {
 			hw_state = "power_on",
@@ -318,6 +322,7 @@ laptop.register_hardware("laptop:bell_crossover", {
 	infotext = "Bell CrossOver",
 	os_version = "6.33",
 	sequence = { "off", "on"},
+	use_texture_alpha = "clip",
 	node_defs = {
 		["on"] = {
 			hw_state = "power_on",
@@ -391,6 +396,7 @@ laptop.register_hardware("laptop:kodiak_1000", {
 	sequence = { "off", "on"},
 	os_version = "3.31",
 	hw_capabilities = { "floppy", "liveboot" },
+	use_texture_alpha = "clip",
 	node_defs = {
 		["on"] = {
 			hw_state = "power_on",
@@ -462,6 +468,7 @@ laptop.register_hardware("laptop:portable_workstation_2", {
 	sequence = { "closed", "open", "open_on"},
 	battery_capacity = 80000,
 	inventory_image = "laptop_lap_base_item.png",
+	use_texture_alpha = "clip",
 	node_defs = {
 		["closed"] = {
 			hw_state = "power_off",

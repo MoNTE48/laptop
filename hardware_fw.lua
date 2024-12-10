@@ -276,6 +276,7 @@ function laptop.register_hardware(name, hwdef)
 		local nodename = name.."_"..variant
 		local def = table.copy(hwdef.node_defs[variant])
 		def.description = hwdef.description
+		def.use_texture_alpha = hwdef.use_texture_alpha
 
 		-- drop the item visible in inventory
 		if def.groups then
