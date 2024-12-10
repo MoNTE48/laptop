@@ -79,18 +79,20 @@ end
 
 -- load all apps
 local app_path = minetest.get_modpath('laptop')..'/apps/'
-local app_list = minetest.get_dir_list(app_path, false)
+local app_list = {
+	"browser", "calculator", "cs-bos", "launcher",
+	"launcher_settings", "mail", "os_dialogs", "os_print",
+	"painting", "realchess", "removable", "shell-os",
+	"stickynote", "tetris", "TNTsweeper"
+}
 
 for _, file in ipairs(app_list) do
-	if file:sub(-8) == '_app.lua' then
-		dofile(app_path..file)
-	end
+	dofile(app_path..file.."_app.lua")
 end
 
 dofile(app_path..'browser_app.lua')
 for _, file in ipairs(app_list) do
-    if file:sub(-8) == '_app.lua' and file ~= 'browser_app.lua' 
-then
-        dofile(app_path..file)
-    end
+	if file ~= 'browser' then
+		dofile(app_path..file.."_app.lua")
+	end
 end
