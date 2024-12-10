@@ -134,7 +134,7 @@ function bdev:get_app_storage(disk_type, store_name)
 			store[store_name] = store[store_name] or {}
 			return store[store_name]
 		else
-			return {}
+			return nil
 		end
 	elseif disk_type == 'removable' then
 		local store = self:get_removable_disk()
@@ -142,7 +142,7 @@ function bdev:get_app_storage(disk_type, store_name)
 			store.storage[store_name] = store.storage[store_name] or {}
 			return store.storage[store_name]
 		else
-			return {}
+			return nil
 		end
 	elseif disk_type == 'system' then
 		local runtime = self:get_app_storage("ram", "os")
@@ -151,7 +151,6 @@ function bdev:get_app_storage(disk_type, store_name)
 	elseif disk_type == 'cloud' then
 		return self:get_cloud_disk(store_name) or nil
 	end
-	return {}
 end
 
 
