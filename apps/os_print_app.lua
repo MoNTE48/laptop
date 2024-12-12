@@ -75,6 +75,7 @@ laptop.register_app("printer_launcher", {
 		mtos.bdev:sync()
 		-- inventory fields
 		local formspec = "size[9,8]"..
+				laptop.close_btn("9.5,-0.4") ..
 				"list[current_player;main;0.3,3.85;8,1;]" ..
 				"list[current_player;main;0.3,5.08;8,3;8]" ..
 				"listring[nodemeta:"..mtos.pos.x..','..mtos.pos.y..','..mtos.pos.z..";main]" ..
@@ -125,8 +126,7 @@ laptop.register_app("printer_launcher", {
 	end,
 
 	appwindow_formspec_func = function(launcher_app, app, mtos)
-		local formspec = 'size[10,7]'
-		return formspec
+		return 'size[10,7]' .. laptop.close_btn("10.5,-0.4")
 	end,
 
 	allow_metadata_inventory_put = function(app, mtos, player, listname, index, stack)
