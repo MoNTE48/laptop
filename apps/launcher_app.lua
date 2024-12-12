@@ -8,6 +8,7 @@ laptop.register_app("launcher", {
 		-- no system found. Error
 		if not mtos.sysdata then
 			local formspec = "size[10,7]background[10,7;0,0;laptop_launcher_insert_floppy.png;true]"..
+					laptop.close_btn("10.5,-0.4")..
 					"listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"..
 					"list[nodemeta:"..mtos.pos.x..','..mtos.pos.y..','..mtos.pos.z..";main;2.5,3;1,1;]" ..
 					"list[current_player;main;0,6.5;8,1;]" ..
@@ -27,6 +28,7 @@ laptop.register_app("launcher", {
 
 		local i = 0
 		local out = "size[15,10]"
+		out = out .. laptop.close_btn("15.5,-0.4")
 		if mtos.theme.desktop_background then
 			out = out..'background[15,10;0,0;'..mtos.theme.desktop_background..';true]'
 		end
@@ -47,7 +49,7 @@ laptop.register_app("launcher", {
 		return out
 	end,
 	appwindow_formspec_func = function(launcher_app, app, mtos)
-		local formspec = 'size[15,10]'
+		local formspec = 'size[15,10]' .. laptop.close_btn("15.5,-0.4")
 		if mtos.theme.app_background then
 			formspec = formspec..'background[0,0;15,10;'..mtos.theme.app_background..';true]'
 		end

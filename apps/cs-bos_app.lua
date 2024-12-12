@@ -162,6 +162,7 @@ laptop.register_app("cs-bos_launcher", {
 		-- no system found. In case of booted from removable, continue in live mode
 		if not mtos.sysdata and sysos.booted_from ~= "removable" then
 			local formspec = "size[10,7]background[10,7;0,0;laptop_launcher_insert_floppy.png;true]"..
+					laptop.close_btn("10.5,-0.4") ..
 					"listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"..
 					"list[nodemeta:"..mtos.pos.x..','..mtos.pos.y..','..mtos.pos.z..";main;2.5,3;1,1;]" ..
 					"list[current_player;main;0,6.5;8,1;]" ..
@@ -181,6 +182,7 @@ laptop.register_app("cs-bos_launcher", {
 		local tty = laptop.supported_textcolors[data.tty]
 		local formspec =
 				"size[15,10]background[15,10;0,0;laptop_theme_desktop_icon_label_button_black.png;true]"..
+				laptop.close_btn("15.5,-0.4") ..
 				"label[-0.15,9.9;"..minetest.colorize(tty,data.current_disk..">").."]"..
 				"field[1.020,9.93;15.6,1;inputfield;;"..minetest.formspec_escape(data.inputfield).."]"..
 				"tablecolumns[text]tableoptions[background=#000000;border=false;highlight=#000000;"..
