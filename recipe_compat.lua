@@ -28,6 +28,12 @@ if minetest.get_modpath('default') then
 	rc.lv_transformer = 'default:copper_ingot'
 end
 
+if minetest.get_modpath('inv_themes') then
+	rc.tin = 'default:gold_ingot'
+	rc.copper = 'default:gold_ingot'
+	rc.lv_transformer = 'default:gold_ingot'
+end
+
 if minetest.get_modpath('homedecor') then
 	rc.gates_diode = 'homedecor:paraffin'
 	rc.gates_and = 'homedecor:power_crystal'
@@ -64,7 +70,9 @@ if minetest.get_modpath('mesecons_delayer') then
 	rc.delayer = 'mesecons_delayer:delayer_off_1'
 end
 
-if minetest.get_modpath('mesecons_luacontroller') then
+if minetest.get_modpath('mesecons_microcontroller') then
+	rc.controller = 'mesecons_microcontroller:microcontroller0000'
+elseif minetest.get_modpath('mesecons_luacontroller') then
 	rc.controller = 'mesecons_luacontroller:luacontroller0000'
 end
 
