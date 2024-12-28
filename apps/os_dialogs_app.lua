@@ -69,8 +69,9 @@ laptop.register_view('os:select_file', {
 			if store == param.selected_disk_name then
 				formspec = formspec .. mtos.theme:get_bgcolor_box('0.1,'..(idx+0.7)..';1,1', 'table_highlight')
 			end
-			if store == 'removable' then
-				formspec = formspec .. 'item_image_button['..icon_pos..';1,1;'.. mtos.bdev:get_removable_disk().def.name..';disksel_removable;]'
+			local disk = mtos.bdev:get_removable_disk()
+			if store == 'removable' and disk then
+				formspec = formspec .. 'item_image_button['..icon_pos..';1,1;'.. disk.def.name..';disksel_removable;]'
 			elseif store == 'hdd' then
 				formspec = formspec .. 'item_image_button['..icon_pos..';1,1;'.. mtos.hwdef.nodename..';disksel_hdd;]'
 			else

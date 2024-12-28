@@ -16,7 +16,7 @@ function app_class:get_formspec()
 		return app_result
 	end
 
-	if app_result == false then
+	if not app_result then
 		return false
 	end
 

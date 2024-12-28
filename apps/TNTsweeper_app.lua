@@ -60,6 +60,7 @@ end
 function sweeper_class:reveal(sel_w, sel_h)
 	local board = self.data.board
 	local sel = self:get(sel_w, sel_h)
+	if not sel then return end
 
 	-- unmark bomb
 	if sel.bomb_marked then
@@ -90,6 +91,7 @@ end
 
 function sweeper_class:toggle_bomb_mark(sel_w, sel_h)
 	local sel = self:get(sel_w, sel_h)
+	if not sel then return end
 	if sel.bomb_marked then
 		self.data.bomb_count = self.data.bomb_count - 1
 		sel.bomb_marked = nil

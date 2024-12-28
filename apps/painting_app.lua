@@ -37,6 +37,7 @@ laptop.register_app("painting", {
 	app_info = "Show/Edit Pictures",
 	formspec_func = function(app, mtos)
 		local data = mtos.bdev:get_app_storage('system', 'painting')
+		if not data then return end
 		data.files = data.files or {}
 		if not data.brush_color then
 			data.brush_color = "000000"
@@ -104,6 +105,7 @@ laptop.register_app("painting", {
 	end,
 	receive_fields_func = function(app, mtos, sender, fields)
 		local data = mtos.bdev:get_app_storage('system', 'painting')
+		if not data then return end
 		if fields.text then
 			data.text = fields.text
 		end
@@ -156,23 +158,15 @@ laptop.register_app("painting", {
 				label = data.selected_file_name,
 				text = data.text,
 			})
-		elseif fields.set_hex then
+		elseif fields.set_hex and #fields.hex_color >= 6 then
 			local color = {
-				r = tonumber("00"..fields.hex_color:sub(1,2),16),
-				g = tonumber("00"..fields.hex_color:sub(3,4),16),
-				b = tonumber("00"..fields.hex_color:sub(5,6),16),
-				a = fields.hex_color:sub(7,8),
+				r = tonumber("00"..fields.hex_color:sub(1,2),16) or 255,
+				g = tonumber("00"..fields.hex_color:sub(3,4),16) or 255,
+				b = tonumber("00"..fields.hex_color:sub(5,6),16) or 255,
+				a = tonumber(fields.hex_color:sub(7,8),16) or 255,
 			}
-	  	  	  if color.a=="" then
-	  	  	  	  color.a = 255
-	  	  	  else
-				color.a = tonumber(color.a, 16)
-	  	  	  end
-	  	  	  if color.a==255 then
-	  	  	  	  data.brush_color = string.format("%02x%02x%02x", color.r, color.g, color.b)
-	  	  	  else
-	  	  	  	  data.brush_color = string.format("%02x%02x%02x%02x", color.r, color.g, color.b, color.a)
-	  	  	  end
+
+			data.brush_color = string.format("%02x%02x%02x%02x", color.r, color.g, color.b, color.a)
 		else
 			-- check for pixel click
 			for y = 1,data.resolution do

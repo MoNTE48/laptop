@@ -20,6 +20,10 @@ laptop.register_app("mail", {
 			return false
 		end
 		local account = cloud[mtos.sysram.current_player]
+		if not account then
+			mtos:set_app() -- no player. Back to launcher
+			return false
+		end
 		account.selected_box = account.selected_box or "inbox"
 		account.selected_index = nil -- will be new determinated by selectedmessage
 		local box = account[account.selected_box] -- inbox or outbox
@@ -230,6 +234,10 @@ laptop.register_view("mail:compose", {
 	formspec_func = function(app, mtos)
 		local cloud = mtos.bdev:get_app_storage('cloud', 'mail')
 		local account = cloud[mtos.sysram.current_player]
+		if not account then
+			mtos:set_app() -- no player. Back to launcher
+			return false
+		end
 		account.newmessage = account.newmessage or {}
 		local message = account.newmessage
 
@@ -268,6 +276,10 @@ laptop.register_view("mail:compose", {
 
 		local cloud = mtos.bdev:get_app_storage('cloud', 'mail')
 		local account = cloud[mtos.sysram.current_player]
+		if not account then
+			mtos:set_app() -- no player. Back to launcher
+			return false
+		end
 		account.newmessage = account.newmessage or {}
 		local message = account.newmessage
 
