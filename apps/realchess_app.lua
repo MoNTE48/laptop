@@ -474,6 +474,11 @@ end
 
 local function timeout_format(timeout_limit)
 	local time_remaining = timeout_limit - minetest.get_gametime()
+
+	if time_remaining < 0 then
+		time_remaining = 0
+	end
+
 	local minutes = math.floor(time_remaining / 60)
 	local seconds = time_remaining % 60
 
@@ -526,6 +531,7 @@ register_piece("king")
 				data.playerWhite = ""
 				data.lastMove = ""
 				data.winner = ""
+				data.lastMoveTime = minetest.get_gametime()
 
 				data.lastMoveTime = 0
 				data.castlingBlackL = 1
