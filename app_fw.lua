@@ -21,11 +21,11 @@ function app_class:get_formspec()
 	end
 
 	local launcher = self.os:get_app(self.os.hwdef.custom_launcher or "launcher")
-	local window_formspec = ""
+	local window_formspec, suffix
 	if launcher.appwindow_formspec_func then
-		window_formspec = launcher.appwindow_formspec_func(launcher, self, self.os)
+		window_formspec, suffix = launcher.appwindow_formspec_func(launcher, self, self.os)
 	end
-	return window_formspec..app_result
+	return (window_formspec or "") .. app_result .. (suffix or "")
 end
 
 -- internally used: process input

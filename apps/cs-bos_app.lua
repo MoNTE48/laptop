@@ -181,10 +181,11 @@ laptop.register_app("cs-bos_launcher", {
 		initialize_data(data, sdata, mtos, sysos)
 		local tty = laptop.supported_textcolors[data.tty]
 		local formspec =
-				"size[15,10]background[15,10;0,0;laptop_theme_desktop_icon_label_button_black.png;true]"..
+				"size[17,10]no_prepend[]bgcolor[#08080880;true]container[1,0]" ..
+				"background[-0.3,-0.325;15.6,10.9;laptop_theme_desktop_icon_label_button_black.png;false]"..
 				laptop.close_btn("15.5,-0.4") ..
 				"label[-0.15,9.9;"..minetest.colorize(tty,data.current_disk..">").."]"..
-				"field[1.020,9.93;15.6,1;inputfield;;"..minetest.formspec_escape(data.inputfield).."]"..
+				"field[1.020,9.93;14.6,1;inputfield;;"..minetest.formspec_escape(data.inputfield).."]"..
 				"tablecolumns[text]tableoptions[background=#000000;border=false;highlight=#000000;"..
 				"color="..tty..";highlight_text="..tty.."]"..
 				"table[-0.35,-0.35;15.57, 10.12;outlines;"
@@ -195,7 +196,7 @@ laptop.register_app("cs-bos_launcher", {
 			formspec = formspec..minetest.formspec_escape(line)
 		end
 		formspec = formspec..";"..#data.outlines.."]".."field_close_on_enter[inputfield;false]"
-		return formspec
+		return formspec .. "container_end[]"
 	end,
 
 	receive_fields_func = function(cs_bos, mtos, sender, fields)
