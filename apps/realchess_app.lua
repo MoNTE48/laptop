@@ -575,6 +575,7 @@ register_piece("king")
 			end
 			local formspec =
 					"bgcolor[#080808BB;true]background[3,1;8,8;laptop_realchess_chess_bg.png]"..
+					'style_type[list;bgimg=;bgimg_hovered=]' ..
 					mtos.theme:get_button('12,1;2,2', 'major', 'new', 'New Game', 'Start a new game')..
 					"list[context;board;3,1;8,8;]"..
 					"listcolors[#00000000;#00000000;#00000000;#30434C;#FFF]"
