@@ -185,10 +185,11 @@ laptop.register_app("cs-bos_launcher", {
 				"background[-0.3,-0.325;15.6,10.9;laptop_theme_desktop_icon_label_button_black.png;false]"..
 				laptop.close_btn("15.5,-0.4") ..
 				"label[-0.15,9.9;"..minetest.colorize(tty,data.current_disk..">").."]"..
-				"field[1.020,9.93;14.6,1;inputfield;;"..minetest.formspec_escape(data.inputfield).."]"..
+				"field[1.020,9.93;12,1;inputfield;;"..minetest.formspec_escape(data.inputfield).."]"..
+				"button[13,9.6;2,1;run;Run]"..
 				"tablecolumns[text]tableoptions[background=#000000;border=false;highlight=#000000;"..
 				"color="..tty..";highlight_text="..tty.."]"..
-				"table[-0.35,-0.35;15.57, 10.12;outlines;"
+				"table[-0.35,-0.35;15.5, 10.12;outlines;"
 		for idx,line in ipairs(data.outlines) do
 			if idx > 1 then
 				formspec = formspec..','
@@ -209,7 +210,7 @@ laptop.register_app("cs-bos_launcher", {
 			data.inputfield = fields.inputfield
 		end
 
-		if fields.key_enter then
+		if fields.key_enter or fields.run then
 			-- run the command
 			local exec_all = data.inputfield:split(" ")
 			local input_line = data.inputfield
