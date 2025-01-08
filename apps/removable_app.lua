@@ -5,8 +5,8 @@ laptop.register_app("removable", {
 	formspec_func = function(app, mtos)
 		local formspec =
 				"list[nodemeta:"..mtos.pos.x..','..mtos.pos.y..','..mtos.pos.z..";main;0,0.3;1,1;]" ..
-				"list[current_player;main;0,4.85;8,1;]" ..
-				"list[current_player;main;0,6.08;8,3;8]" ..
+				"list[current_player;main;0,4.85;9,1;]" ..
+				"list[current_player;main;0,6.08;9,3;9]" ..
 				"listring[nodemeta:"..mtos.pos.x..','..mtos.pos.y..','..mtos.pos.z..";main]" ..
 				"listring[current_player;main]"..
 				"background[0,0.3;8,1;".. mtos.theme.contrast_background .. ']'

@@ -165,7 +165,7 @@ laptop.register_app("cs-bos_launcher", {
 					laptop.close_btn("10.5,-0.4") ..
 					"listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"..
 					"list[nodemeta:"..mtos.pos.x..','..mtos.pos.y..','..mtos.pos.z..";main;2.5,3;1,1;]" ..
-					"list[current_player;main;0,6.5;8,1;]" ..
+					"list[current_player;main;0,6.5;9,1;]" ..
 					"listring[nodemeta:"..mtos.pos.x..','..mtos.pos.y..','..mtos.pos.z..";main]" ..
 					"listring[current_player;main]"
 
