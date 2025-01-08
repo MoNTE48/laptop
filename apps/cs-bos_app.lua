@@ -1,3 +1,5 @@
+local S = laptop.S
+
 local help_texts = {
 	CLS = "                   Clears the screen.",
 	CD = "                     Change disk. CD [HDD,FDD]",
@@ -149,8 +151,8 @@ end
 
 
 laptop.register_app("cs-bos_launcher", {
-	app_name = "CS-BOS Prompt",
-	app_info = "Command Line Interface",
+	app_name = S("CS-BOS Prompt"),
+	app_info = S("Command Line Interface"),
 	fullscreen = true,
 	app_icon = "laptop_cs_bos.png",
 

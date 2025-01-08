@@ -1,9 +1,11 @@
 -- based on https://github.com/cheapie/mail
 
+local S = laptop.S
+
 laptop.register_app("mail", {
-	app_name = "Mail",
+	app_name = S("Mail"),
 	app_icon = "laptop_email_letter.png",
-	app_info = "Send Electronic Mail",
+	app_info = S("Send Electronic Mail"),
 	formspec_func = function(app, mtos)
 		local cloud = mtos.bdev:get_app_storage('cloud', 'mail')
 		if not cloud then

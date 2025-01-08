@@ -1,3 +1,5 @@
+local S = laptop.S
+
 local printer_range = 10
 
 local function trigger_queue(app, mtos)
@@ -64,7 +66,7 @@ local function sync_stack_values(mtos)
 end
 
 laptop.register_app("printer_launcher", {
-	app_name = "Printer firmware",
+	app_name = S("Printer firmware"),
 	view = true, -- to be hidden in "usual" OS
 	fullscreen = true,
 	formspec_func = function(launcher_app, mtos)

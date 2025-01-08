@@ -1,9 +1,11 @@
+local S = laptop.S
+
 local store_area = 'stickynote:files'
 
 laptop.register_app("stickynote", {
-	app_name = "Notepad",
+	app_name = S("Notepad"),
 	app_icon = "laptop_notes_pad.png",
-	app_info = "Write Text Documents",
+	app_info = S("Write Text Documents"),
 	formspec_func = function(app, mtos)
 		local data = mtos.bdev:get_app_storage('system', 'stickynote')
 		if not data then return end

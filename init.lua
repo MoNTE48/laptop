@@ -1,10 +1,11 @@
 laptop = {}
 laptop.class_lib = {}
+laptop.S = core.get_translator("laptop")
 
 function laptop.close_btn(pos, player)
 	pos = pos or "15.5,-0.4"
 	-- Note: player must be nil when node meta formspecs are used
-	if player and minetest.global_exists("inv_themes") then
+	if player and minetest.global_exists("inv_themes") and inv_themes then -- for default game
 		return inv_themes.get_theme(player):close_btn(pos)
 	end
 
