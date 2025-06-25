@@ -54,7 +54,7 @@ laptop.register_app("stickynote", {
 			data.selected_file_name = fields.open_selected_file
 			local store = mtos.bdev:get_app_storage(data.selected_disk_name, store_area)
 			if store then
-				data.text = store[data.selected_file_name].content
+				data.text = store[data.selected_file_name] and store[data.selected_file_name].content
 			end
 		elseif fields.save then
 			mtos:select_file_dialog({

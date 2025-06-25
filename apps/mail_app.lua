@@ -132,6 +132,10 @@ laptop.register_app("mail", {
 		end
 
 		local cloud = mtos.bdev:get_app_storage('cloud', 'mail')
+		if not cloud then
+			mtos:set_app("mail:nonet")
+			return
+		end
 		local account = cloud[mtos.sysram.current_player]
 		if not account then
 			mtos:set_app() -- wrong player. Back to launcher
@@ -211,6 +215,10 @@ laptop.register_view("mail:newplayer", {
 		end
 		if fields.create then
 			local cloud = mtos.bdev:get_app_storage('cloud', 'mail')
+			if not cloud then
+				mtos:set_app("mail:nonet")
+				return
+			end
 			cloud[mtos.sysram.current_player] = {
 				inbox = {},
 				sentbox = {}
@@ -235,6 +243,10 @@ laptop.register_view("mail:nonet", {
 laptop.register_view("mail:compose", {
 	formspec_func = function(app, mtos)
 		local cloud = mtos.bdev:get_app_storage('cloud', 'mail')
+		if not cloud then
+			mtos:set_app("mail:nonet")
+			return false
+		end
 		local account = cloud[mtos.sysram.current_player]
 		if not account then
 			mtos:set_app() -- no player. Back to launcher
@@ -277,6 +289,10 @@ laptop.register_view("mail:compose", {
 		end
 
 		local cloud = mtos.bdev:get_app_storage('cloud', 'mail')
+		if not cloud then
+			mtos:set_app("mail:nonet")
+			return false
+		end
 		local account = cloud[mtos.sysram.current_player]
 		if not account then
 			mtos:set_app() -- no player. Back to launcher

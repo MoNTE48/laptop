@@ -1,19 +1,19 @@
 # textdomain: laptop
-Ziram c6 Processor=Ziram c6 Процессор
-Interlink D75A Processor=Interlink D75A Процессор
-Interlink jetCore Processor=Interlink jetCore Процессор
-Transpose 65536 Processor=Transpose 65536 Процессор
+Ziram c6 Processor=Процессор Ziram c6
+Interlink D75A Processor=Процессор Interlink D75A
+Interlink jetCore Processor=Процессор Interlink jetCore
+Transpose 65536 Processor=Процессор Transpose 65536
 Battery=Батарея
 Case=Корпус
-CRT Screen=CRT Экран
-Amber CRT Screen=Amber CRT Экран
-Green CRT Screen=Экран
-LCD Screen=LCD Экран
-GPU=GPU
+CRT Screen=CRT-монитор
+Amber CRT Screen=Янтарный CRT-монитор
+Green CRT Screen=Зелёный CRT-монитор
+LCD Screen=LCD-монитор
+GPU=Графический процессор
 Hard Drive=Жесткий диск
 Motherboard=Материнская плата
-Fan=Куллер
-PSU=PSU
+Fan=Кулер
+PSU=Блок питания
 High density floppy=Дискета большой ёмкости
 USB storage stick=USB-накопитель
 Printed paper=Бумага для печати
@@ -26,8 +26,8 @@ Flash Printex=Флэш-принтер
 #Kodiak 1000=Kodiak 1000
 Portable Workstation 2=Портативная Станция 2
 
-#MineBrowse=MineBrowse
-Web Browser=Веб Браузер
+MineBrowse=Майн-Браузер
+Web Browser=Веб-браузер
 Browser settings=Настройки браузера
 
 Calculator=Калькулятор
@@ -64,7 +64,7 @@ Write Text Documents=Написание текстовых документов
 Removable Storage=Съемное хранилища
 Interface with Removable Media=Интерфейс со Cъемными носителями
 
-#Realchess=Realchess
+Realchess=Шахматы
 A Chess game=Игра в Шахматы
 
 Painting=Рисование

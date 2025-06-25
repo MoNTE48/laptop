@@ -119,7 +119,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("laptop:crt_green", {
-	description = ('Green CRT Screen'),
+	description = S('Green CRT Screen'),
 	inventory_image = "laptop_crt_green.png",
 })
 
