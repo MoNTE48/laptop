@@ -59,7 +59,7 @@ local function sanitise_storage(storage, max_size)
 	if not storage then return end
 
 	-- Clear large sticky note files
-	local items = storage["stickynote:files"]
+	local items = storage["stickynote:files"] or {}
 	local count = 0
 	for k, v in pairs(items) do
 		if count > 8 or #k > laptop.max_filename_size then
