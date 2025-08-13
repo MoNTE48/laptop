@@ -1,4 +1,6 @@
 local S = laptop.S
+local len8 = utf8.len
+local sub8 = utf8.sub
 
 local rc = laptop.recipe_compat -- Recipe items from other mods
 
@@ -261,8 +263,23 @@ minetest.register_craftitem("laptop:printed_paper", {
 				"label[0,0;" .. minetest.formspec_escape(data.title or "unnamed") ..
 				" by " .. (data.author or "unknown") .. " from " .. os.date("%c", data.timestamp) .. "]"..
 				"textarea[0.5,1;7.5,7;;" ..
-				minetest.formspec_escape(data.text or "test text") .. ";]"
+				minetest.formspec_escape(data.text or "") .. ";]"
 	minetest.show_formspec(user:get_player_name(), "laptop:printed_paper", formspec)
 	return itemstack
 	end
 })
+
+-- Remove existing paper that has too much data
+minetest.register_on_joinplayer(function(player)
+	local inv = player:get_inventory()
+	for i, stack in ipairs(inv:get_list("main")) do
+		if stack:get_name() == "laptop:printed_paper" then
+			local meta = stack:get_meta()
+			if len8(meta:get_string("title")) > 1000 or len8(meta:get_string("text")) > 65536 then
+				meta:set_string("title", "")
+				meta:set_string("text", "")
+				inv:set_stack("main", i, stack)
+			end
+		end
+	end
+end)

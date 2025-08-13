@@ -1,4 +1,6 @@
 local S = laptop.S
+local len8 = utf8.len
+local sub8 = utf8.sub
 
 local store_area = 'stickynote:files'
 
@@ -37,7 +39,7 @@ laptop.register_app("stickynote", {
 		local data = mtos.bdev:get_app_storage('system', 'stickynote')
 		if not data then return end
 		if fields.text then
-			data.text = fields.text
+			data.text = sub8(fields.text, 1, 65535)
 		end
 
 		if fields.load then

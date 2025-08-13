@@ -1,3 +1,5 @@
+local sub8 = utf8.sub
+
 -- Tool to get data
 local function get_file(key, value)
 	if not value then
@@ -125,7 +127,7 @@ laptop.register_view('os:select_file', {
 		local param = st.param
 
 		if fields.filename then
-			param.selected_file_name = fields.filename
+			param.selected_file_name = sub8(fields.filename, 1, 1000)
 		end
 
 		for field, value in pairs(fields) do
