@@ -1,6 +1,4 @@
 local S = laptop.S
-local len8 = utf8.len
-local sub8 = utf8.sub
 
 local store_area = 'stickynote:files'
 

@@ -1,5 +1,4 @@
 local S = laptop.S
-local sub8 = utf8.sub
 
 local printer_range = 10
 

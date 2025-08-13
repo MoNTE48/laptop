@@ -1,6 +1,5 @@
 local S = laptop.S
 local len8 = utf8.len
-local sub8 = utf8.sub
 
 local rc = laptop.recipe_compat -- Recipe items from other mods
 
@@ -268,19 +267,3 @@ minetest.register_craftitem("laptop:printed_paper", {
 	return itemstack
 	end
 })
-
--- Remove existing paper that has too much data
-minetest.register_on_joinplayer(function(player)
-	local inv = player:get_inventory()
-	for i, stack in ipairs(inv:get_list("main")) do
-		if stack:get_name() == "laptop:printed_paper" then
-			local meta = stack:get_meta()
-			if #meta:get_string("title") > laptop.max_filename_size or
-					#meta:get_string("text") > laptop.max_text_size then
-				meta:set_string("title", "")
-				meta:set_string("text", "")
-				inv:set_stack("main", i, stack)
-			end
-		end
-	end
-end)

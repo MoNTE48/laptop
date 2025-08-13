@@ -43,7 +43,7 @@ laptop.register_app("removable", {
 		local idata = mtos.bdev:get_removable_disk()
 		if idata.stack then
 			if fields.set_label then
-				idata.label = fields.label
+				idata.label = laptop.truncate_text(fields.label, laptop.max_filename_size)
 			elseif fields.format_wipe then
 				idata:format_disk()
 			elseif fields.format_data then

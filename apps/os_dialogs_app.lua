@@ -1,5 +1,3 @@
-local sub8 = utf8.sub
-
 -- Tool to get data
 local function get_file(key, value)
 	if not value then

@@ -37,3 +37,66 @@ dofile(minetest.get_modpath('laptop')..'/hardware_fw.lua')
 dofile(minetest.get_modpath('laptop')..'/recipe_compat.lua')
 dofile(minetest.get_modpath('laptop')..'/hardware_nodes.lua')
 dofile(minetest.get_modpath('laptop')..'/craftitems.lua')
+
+
+-- Remove existing paper that has too much data
+minetest.register_on_joinplayer(function(player)
+	local inv = player:get_inventory()
+	for i, stack in ipairs(inv:get_list("main")) do
+		if stack:get_name() == "laptop:printed_paper" then
+			local meta = stack:get_meta()
+			if #meta:get_string("title") > laptop.max_filename_size or
+					#meta:get_string("text") > laptop.max_text_size then
+				meta:set_string("title", "")
+				meta:set_string("text", "")
+				inv:set_stack("main", i, stack)
+			end
+		end
+	end
+end)
+
+local function sanitise_storage(storage, max_size)
+	if not storage then return end
+
+	-- Clear large sticky note files
+	local items = storage["stickynote:files"]
+	local count = 0
+	for k, v in pairs(items) do
+		if count > 8 or #k > laptop.max_filename_size then
+			items[k] = nil
+		else
+			count = count + 1
+			items[k] = laptop.truncate_text(v, laptop.max_text_size)
+		end
+	end
+
+	-- If storage is still unreasonably large, wipe it
+	if #core.serialize(storage) > max_size then
+		for k in pairs(storage) do
+			storage[k] = nil
+		end
+
+		-- storage cannot be empty or it won't be saved
+		storage["stickynote:files"] = {}
+	end
+end
+
+minetest.register_lbm({
+	label = "Sanitise laptop storage",
+	name = "laptop:sanitise_storage",
+	nodenames = {"group:laptop"},
+	action = function(pos)
+		local mtos = laptop.os_get(pos)
+		local bdev = mtos.bdev
+
+		sanitise_storage(bdev:get_hard_disk(), 200000)
+
+		local disk = bdev:get_removable_disk()
+		if disk then
+			sanitise_storage(disk.storage, 65535)
+		end
+
+		-- Save
+		bdev:sync()
+	end,
+})
