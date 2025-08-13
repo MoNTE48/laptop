@@ -15,6 +15,20 @@ function laptop.close_btn(pos, player)
 			"exit;;true;false;close_pressed.png]"
 end
 
+-- These sizes are in bytes
+laptop.max_filename_size = 1000
+laptop.max_text_size = 10000
+laptop.max_files = 8
+
+function laptop.truncate_text(text, max_size)
+	-- Like text:sub(1, max_size) but won't split a multi-byte character (which
+	-- causes the text to be shown as <invalid UTF-8 string> or something)
+	if #text > max_size then
+		return utf8.remove(text:sub(1, max_size + 1))
+	end
+	return text
+end
+
 dofile(minetest.get_modpath('laptop')..'/themes.lua')
 dofile(minetest.get_modpath('laptop')..'/block_devices.lua')
 dofile(minetest.get_modpath('laptop')..'/app_fw.lua')

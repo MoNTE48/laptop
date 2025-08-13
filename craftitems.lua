@@ -275,7 +275,8 @@ minetest.register_on_joinplayer(function(player)
 	for i, stack in ipairs(inv:get_list("main")) do
 		if stack:get_name() == "laptop:printed_paper" then
 			local meta = stack:get_meta()
-			if len8(meta:get_string("title")) > 1000 or len8(meta:get_string("text")) > 65536 then
+			if #meta:get_string("title") > laptop.max_filename_size or
+					#meta:get_string("text") > laptop.max_text_size then
 				meta:set_string("title", "")
 				meta:set_string("text", "")
 				inv:set_stack("main", i, stack)
