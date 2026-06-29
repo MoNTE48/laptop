@@ -210,7 +210,7 @@ laptop.register_view("printer:app", {
 	formspec_func = function(app, mtos)
 		local store = mtos.bdev:get_app_storage('ram', 'printer:app')
 		local param = store.param
-		local sysstore = mtos.bdev:get_app_storage('system', 'printer:app')
+		local sysstore = mtos.bdev:get_app_storage('system', 'printer:app') or {}
 		sysstore.printers = sysstore.printers or {}
 
 		local formspec = mtos.theme:get_label('0.5,1', "Selected Printer:")
@@ -273,7 +273,7 @@ laptop.register_view("printer:app", {
 	receive_fields_func = function(app, mtos, sender, fields)
 		local store = mtos.bdev:get_app_storage('ram', 'printer:app')
 		local param = store.param
-		local sysstore = mtos.bdev:get_app_storage('system', 'printer:app')
+		local sysstore = mtos.bdev:get_app_storage('system', 'printer:app') or {}
 		sysstore.printers = sysstore.printers or {}
 
 		if fields.scan then

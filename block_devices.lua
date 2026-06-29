@@ -69,7 +69,10 @@ function bdev:get_removable_disk(removable_type)
 							break
 						end
 					end
-					self.storage = minetest.deserialize(self.meta:get_string("os_storage")) or {}
+					self.storage = minetest.deserialize(self.meta:get_string("os_storage"))
+					if type(self.storage) ~= "table" then
+						self.storage = {}
+					end
 				end
 			end
 		end
@@ -99,7 +102,10 @@ end
 
 -- Connect to cloud
 function bdev:get_cloud_disk(store_name)
-	if self.cloud_disk == nil or (self.cloud_disk ~= false and not self.cloud_disk[store_name]) then
+	if self.cloud_disk == false then
+		return false
+	end
+	if self.cloud_disk == nil or not self.cloud_disk[store_name] then
 		if self:is_hw_capability('net') then
 			self.cloud_disk = self.cloud_disk or {}
 			self.cloud_disk[store_name] = minetest.deserialize(mod_storage:get_string(store_name)) or {}

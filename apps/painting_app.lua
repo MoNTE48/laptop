@@ -125,8 +125,9 @@ laptop.register_app("painting", {
 			data.selected_disk_name = fields.open_selected_disk
 			data.selected_file_name = fields.open_selected_file
 			local store = mtos.bdev:get_app_storage(data.selected_disk_name, store_area)
-			if store then
-				data.grid = store[data.selected_file_name].content
+			local file = store and store[data.selected_file_name]
+			if file and file.content then
+				data.grid = file.content
 				data.resolution = #data.grid
 			end
 		elseif fields.save then

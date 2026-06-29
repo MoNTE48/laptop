@@ -260,7 +260,7 @@ minetest.register_craftitem("laptop:printed_paper", {
 		local formspec = "size[8,8]" ..
 				laptop.close_btn("8.5,-0.4", user) ..
 				"label[0,0;" .. minetest.formspec_escape(data.title or "unnamed") ..
-				" by " .. (data.author or "unknown") .. " from " .. os.date("%c", data.timestamp) .. "]"..
+				" by " .. (data.author or "unknown") .. " from " .. os.date("%c", tonumber(data.timestamp) or os.time()) .. "]"..
 				"textarea[0.5,1;7.5,7;;" ..
 				minetest.formspec_escape(data.text or "") .. ";]"
 	minetest.show_formspec(user:get_player_name(), "laptop:printed_paper", formspec)
