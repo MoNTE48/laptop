@@ -12,6 +12,55 @@ function bdev:is_hw_capability(hw_cap)
 	return false
 end
 
+-- The only metadata the mod writes, everything else is dropped on restore
+local allowed_meta_fields = {
+	"description", "os_format", "os_storage", "backup_data", -- disks
+	"title", "text", "author", "timestamp", -- printed paper
+}
+
+-- The printer keeps its consumables in the disk slot too
+local extra_slot_items = {
+	["default:paper"] = true,
+	["dye:black"] = true,
+	["laptop:printed_paper"] = true,
+}
+
+-- Rebuild a stack from saved data, keeping only what the mod itself wrote
+function laptop.sanitize_stack(stack)
+	local clean = ItemStack(stack:get_name())
+	clean:set_count(math.min(stack:get_count(), clean:get_stack_max()))
+	clean:set_wear(stack:get_wear())
+
+	local meta, clean_meta = stack:get_meta(), clean:get_meta()
+	for _, field in ipairs(allowed_meta_fields) do
+		local value = meta:get_string(field)
+		if value ~= "" then
+			clean_meta:set_string(field, value)
+		end
+	end
+	return clean
+end
+
+-- What may be inserted into the disk slot, apps widen this themselves
+function bdev:is_removable_disk(stack)
+	local def = stack:get_definition()
+	if not def then
+		return false
+	end
+	for group, _ in pairs(def.groups) do
+		if self:is_hw_capability(group) then
+			return true
+		end
+	end
+	return false
+end
+
+-- What may legitimately sit in the slot, used to clean out anything else
+function bdev:is_valid_slot_item(stack)
+	return stack:is_empty() or extra_slot_items[stack:get_name()] ~= nil
+			or self:is_removable_disk(stack)
+end
+
 -- Get RAM
 function bdev:get_ram_disk()
 	if not self.ram_disk then
@@ -47,7 +96,18 @@ function bdev:get_removable_disk(removable_type)
 		function data:reload(stack)
 			-- self.inv unchanged
 			-- self.rtype unchanged (assumption
-			stack = stack or self.inv:get_stack("main", 1)
+			if not stack then
+				stack = self.inv:get_stack("main", 1)
+
+				-- Throw out anything that has no business being in the slot
+				if not self.bdev:is_valid_slot_item(stack) then
+					minetest.log("action", "[laptop] discarded " .. stack:to_string() ..
+							" from the disk slot at " ..
+							minetest.pos_to_string(self.bdev.os.pos))
+					self.inv:set_stack("main", 1, "")
+					stack = ItemStack("")
+				end
+			end
 			if stack then
 				local def = stack:get_definition()
 				if def and def.name ~= "" then

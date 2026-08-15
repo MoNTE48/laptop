@@ -22,17 +22,7 @@ local function on_punch(pos, node, puncher)
 	local mtos = laptop.os_get(pos)
 
 	local punch_item = puncher:get_wielded_item()
-	local is_compatible = false
-	if punch_item then
-		local def = punch_item:get_definition()
-		for group, _ in pairs(def.groups) do
-			if mtos.bdev:is_hw_capability(group) then
-				is_compatible = true
-			end
-		end
-	end
-
-	if is_compatible then
+	if punch_item and mtos.bdev:is_removable_disk(punch_item) then
 		local slot = mtos.bdev:get_removable_disk()
 		-- swap
 		puncher:set_wielded_item(slot.stack)
@@ -70,15 +60,7 @@ end
 
 local function allow_metadata_inventory_put(pos, listname, index, stack, player)
 	local mtos = laptop.os_get(pos)
-	local def = stack:get_definition()
-	local allowed_stacksize = 0
-	if def then
-		for group, _ in pairs(def.groups) do
-			if mtos.bdev:is_hw_capability(group) then
-				allowed_stacksize = 1
-			end
-		end
-	end
+	local allowed_stacksize = mtos.bdev:is_removable_disk(stack) and 1 or 0
 	return mtos:pass_to_app("allow_metadata_inventory_put", false, player, listname, index, stack) or allowed_stacksize
 end
 
@@ -118,8 +100,13 @@ local function after_place_node(pos, placer, itemstack, pointed_thing)
 	mtos.bdev.hard_disk = save.hard_disk or mtos.bdev.hard_disk
 
 	if save.removable_disk then
-		local removable = mtos.bdev:get_removable_disk()
-		removable:reload(ItemStack(save.removable_disk))
+		local stack = laptop.sanitize_stack(ItemStack(save.removable_disk))
+		if mtos.bdev:is_valid_slot_item(stack) then
+			mtos.bdev:get_removable_disk():reload(stack)
+		else
+			minetest.log("action", "[laptop] refused to restore " .. stack:to_string() ..
+					" into the disk slot at " .. minetest.pos_to_string(pos))
+		end
 	end
 
 	-- battery support

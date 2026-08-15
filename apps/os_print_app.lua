@@ -24,6 +24,7 @@ local function trigger_queue(app, mtos)
 		local stack = ItemStack("laptop:printed_paper")
 		local print_data = mtos.sysdata.print_queue[1]
 		stack:get_meta():from_table({ fields = print_data})
+		stack = laptop.sanitize_stack(stack)
 		table.remove(mtos.sysdata.print_queue, 1)
 		idata:reload(stack)
 		idata.label = print_data.title
@@ -152,7 +153,7 @@ laptop.register_app("printer_launcher", {
 		local idata = mtos.bdev:get_removable_disk()
 		if fields.view_out then
 			mtos.sysdata.selected_view = 'output'
-			idata.stack = ItemStack(mtos.sysdata.out_stack_save or "")
+			idata.stack = laptop.sanitize_stack(ItemStack(mtos.sysdata.out_stack_save or ""))
 		elseif fields.view_paper then
 			mtos.sysdata.selected_view = 'paper'
 			idata.stack = ItemStack('default:paper')
