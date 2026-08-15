@@ -250,6 +250,11 @@ minetest.register_craft({
 	}
 })
 
+-- Item metadata is not trusted, it can be set to any length with /give
+local function short(text)
+	return esc(laptop.truncate_text(text, laptop.max_text_size))
+end
+
 minetest.register_craftitem("laptop:printed_paper", {
 	description = S('Printed paper'),
 	inventory_image = "laptop_printed_paper.png",
@@ -260,11 +265,11 @@ minetest.register_craftitem("laptop:printed_paper", {
 		local data = meta:to_table().fields
 		local formspec = "size[8,8]" ..
 				laptop.close_btn("8.5,-0.4", user) ..
-				"label[0,0;" .. esc(data.title or "unnamed") ..
-				" by " .. esc(data.author or "unknown") ..
+				"label[0,0;" .. short(data.title or "unnamed") ..
+				" by " .. short(data.author or "unknown") ..
 				" from " .. os.date("%c", tonumber(data.timestamp) or os.time()) .. "]"..
 				"textarea[0.5,1;7.5,7;;" ..
-				esc(data.text or "") .. ";]"
+				short(data.text or "") .. ";]"
 	minetest.show_formspec(user:get_player_name(), "laptop:printed_paper", formspec)
 	return itemstack
 	end

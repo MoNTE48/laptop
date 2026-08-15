@@ -14,8 +14,16 @@ end
 
 -- The only metadata the mod writes, everything else is dropped on restore
 local allowed_meta_fields = {
-	"description", "os_format", "os_storage", "backup_data", -- disks
-	"title", "text", "author", "timestamp", -- printed paper
+	-- disks
+	{name = "description", max = 1000},
+	{name = "os_format", max = 100},
+	{name = "os_storage", max = 65535, drop = true},
+	{name = "backup_data", max = 200000, drop = true},
+	-- printed paper
+	{name = "title", max = 1000},
+	{name = "text", max = 10000},
+	{name = "author", max = 1000},
+	{name = "timestamp", max = 20},
 }
 
 -- The printer keeps its consumables in the disk slot too
@@ -33,9 +41,13 @@ function laptop.sanitize_stack(stack)
 
 	local meta, clean_meta = stack:get_meta(), clean:get_meta()
 	for _, field in ipairs(allowed_meta_fields) do
-		local value = meta:get_string(field)
+		local value = meta:get_string(field.name)
+		if #value > field.max then
+			-- A serialized table cannot be cut short without corrupting it
+			value = field.drop and "" or laptop.truncate_text(value, field.max)
+		end
 		if value ~= "" then
-			clean_meta:set_string(field, value)
+			clean_meta:set_string(field.name, value)
 		end
 	end
 	return clean

@@ -301,11 +301,13 @@ laptop.register_view("mail:compose", {
 		account.newmessage = account.newmessage or {}
 		local message = account.newmessage
 
-		message.receiver = fields.receiver or message.receiver
+		-- Mail is stored in mod storage and rendered into the receiver's screen
+		local max = laptop.max_text_size
+		message.receiver = laptop.truncate_text(fields.receiver, max) or message.receiver
 		message.sender = mtos.sysram.current_player
 		message.time = os.time()
-		message.subject = fields.subject or message.subject
-		message.body = fields.body or message.body
+		message.subject = laptop.truncate_text(fields.subject, max) or message.subject
+		message.body = laptop.truncate_text(fields.body, max) or message.body
 
 		if fields.send and message.receiver and cloud[message.receiver] then
 			table.insert(cloud[message.receiver].inbox, message)
