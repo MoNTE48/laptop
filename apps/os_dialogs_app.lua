@@ -1,3 +1,5 @@
+local esc = minetest.formspec_escape
+
 -- Tool to get data
 local function get_file(key, value)
 	if not value then
@@ -91,7 +93,7 @@ laptop.register_view('os:select_file', {
 			if idx > 1 then
 				formspec = formspec..','
 			end
-			formspec = formspec..file.name..','..(file.owner or '')..','
+			formspec = formspec..esc(file.name)..','..esc(file.owner or '')..','
 			if file.ctime then
 				formspec = formspec..os.date("%c", file.ctime)
 			end
@@ -109,7 +111,7 @@ laptop.register_view('os:select_file', {
 			end
 
 			formspec = formspec .. mtos.theme:get_bgcolor_box('1.5,8.8;11,1.2', 'contrast')..
-					mtos.theme:get_label("1.6,9.1", "File name:", "contrast").."field[3.2,9.3;5.5,0.8;filename;;"..(param.selected_file_name or "").."]"
+					mtos.theme:get_label("1.6,9.1", "File name:", "contrast").."field[3.2,9.3;5.5,0.8;filename;;"..esc(param.selected_file_name or "").."]"
 		else
 			formspec = formspec .. mtos.theme:get_label('1.5, 9.3', "Selected file: "..(param.selected_file_name or ""))
 		end

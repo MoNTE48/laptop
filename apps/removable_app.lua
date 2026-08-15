@@ -1,4 +1,5 @@
 local S = laptop.S
+local esc = minetest.formspec_escape
 
 laptop.register_app("removable", {
 	app_name = S("Removable Storage"),
@@ -17,7 +18,8 @@ laptop.register_app("removable", {
 		local idata = mtos.bdev:get_removable_disk()
 		if idata.stack then
 			-- change label
-			formspec = formspec .. "field[2,0.65;4,1;label;;"..idata.label.."]"..
+			formspec = formspec .. "field[2,0.65;4,1;label;;"..
+					esc(idata.label).."]"..
 					mtos.theme:get_button('5.7,0.5;1.5,0.7', 'minor', 'set_label', 'Rename', 'Rename the '..idata.def.description)..
 					mtos.theme:get_label('0,1.5', idata.def.description)..
 					mtos.theme:get_label('0,2', "Format: "..idata.os_format)..
