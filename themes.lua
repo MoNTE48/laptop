@@ -57,7 +57,8 @@ local theme_list = {
 	"ambershell", "argyle", "basic", "blue",
 	"boing", "bubbles", "circuit", "clouds",
 	"cubic", "freedom", "fruit", "greenshell",
-	"magma", "printer", "red", "shell", "snowpines"
+	"magma", "printer", "red", "shell", "snowpines",
+	"undersea"
 }
 
 for _, file in ipairs(theme_list) do
