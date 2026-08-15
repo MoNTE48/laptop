@@ -96,8 +96,16 @@ local function after_place_node(pos, placer, itemstack, pointed_thing)
 	end
 
 	local mtos = laptop.os_get(pos)
-	mtos.bdev.ram_disk = save.ram_disk or mtos.bdev.ram_disk
-	mtos.bdev.hard_disk = save.hard_disk or mtos.bdev.hard_disk
+
+	-- App storage has no schema to check, and the LBM misses a fresh placement
+	if type(save.ram_disk) == "table" then
+		mtos.bdev.ram_disk = save.ram_disk
+	end
+	if type(save.hard_disk) == "table" then
+		mtos.bdev.hard_disk = save.hard_disk
+	end
+	laptop.sanitise_storage(mtos.bdev.ram_disk, 200000)
+	laptop.sanitise_storage(mtos.bdev.hard_disk, 200000)
 
 	if save.removable_disk then
 		local stack = laptop.sanitize_stack(ItemStack(save.removable_disk))

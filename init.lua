@@ -56,8 +56,8 @@ minetest.register_on_joinplayer(function(player)
 	end
 end)
 
-local function sanitise_storage(storage, max_size)
-	if not storage then return end
+function laptop.sanitise_storage(storage, max_size)
+	if type(storage) ~= "table" then return end
 
 	-- Clear large sticky note files
 	local items = storage["stickynote:files"] or {}
@@ -90,11 +90,11 @@ minetest.register_lbm({
 		local mtos = laptop.os_get(pos)
 		local bdev = mtos.bdev
 
-		sanitise_storage(bdev:get_hard_disk(), 200000)
+		laptop.sanitise_storage(bdev:get_hard_disk(), 200000)
 
 		local disk = bdev:get_removable_disk()
 		if disk then
-			sanitise_storage(disk.storage, 65535)
+			laptop.sanitise_storage(disk.storage, 65535)
 		end
 
 		-- Save
