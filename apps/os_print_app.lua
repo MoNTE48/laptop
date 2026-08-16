@@ -39,9 +39,9 @@ local function trigger_queue(app, mtos)
 end
 
 local function sync_stack_values(mtos)
-	mtos.sysdata.paper_count = mtos.sysdata.paper_count or 0
-	mtos.sysdata.dye_count = mtos.sysdata.dye_count or 0
-	mtos.sysdata.print_progress = mtos.sysdata.print_progress or 0
+	mtos.sysdata.paper_count = tonumber(mtos.sysdata.paper_count) or 0
+	mtos.sysdata.dye_count = tonumber(mtos.sysdata.dye_count) or 0
+	mtos.sysdata.print_progress = tonumber(mtos.sysdata.print_progress) or 0
 	mtos.bdev.removable_disk = nil -- force reading
 	local idata = mtos.bdev:get_removable_disk()
 	-- store old stack values
@@ -157,11 +157,13 @@ laptop.register_app("printer_launcher", {
 		elseif fields.view_paper then
 			mtos.sysdata.selected_view = 'paper'
 			idata.stack = ItemStack('default:paper')
-			idata.stack:set_count(mtos.sysdata.paper_count)
+			idata.stack:set_count(math.min(mtos.sysdata.paper_count,
+					idata.stack:get_stack_max()))
 		elseif fields.view_dye then
 			mtos.sysdata.selected_view = 'dye'
 			idata.stack = ItemStack('dye:black')
-			idata.stack:set_count(math.floor(mtos.sysdata.dye_count))
+			idata.stack:set_count(math.min(math.floor(mtos.sysdata.dye_count),
+					idata.stack:get_stack_max()))
 		elseif fields.reset then
 			mtos.sysdata.print_queue = {}
 			mtos.sysdata.print_progress = 0
