@@ -56,9 +56,14 @@ laptop.register_app("removable", {
 			elseif fields.format_csbos then
 				idata:format_disk("boot", "CS-BOS Boot Disk")
 			elseif fields.restore then
-				mtos.meta:set_string('laptop_appdata', idata.meta:get_string("backup_data"))
-				mtos.bdev = laptop.get_bdev_handler(mtos)
-				mtos:power_on() --reboot
+				-- Forgeable with /give, and the LBM sanitiser never sees a restore
+				local backup = minetest.deserialize(idata.meta:get_string("backup_data"))
+				if type(backup) == "table" then
+					laptop.sanitise_storage(backup, 200000)
+					mtos.meta:set_string('laptop_appdata', minetest.serialize(backup))
+					mtos.bdev = laptop.get_bdev_handler(mtos)
+					mtos:power_on() --reboot
+				end
 			end
 		end
 		laptop.mtos_cache:sync_and_free(mtos)
