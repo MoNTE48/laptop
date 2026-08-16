@@ -108,17 +108,19 @@ function bdev:get_removable_disk(removable_type)
 		function data:reload(stack)
 			-- self.inv unchanged
 			-- self.rtype unchanged (assumption
-			if not stack then
-				stack = self.inv:get_stack("main", 1)
+			local from_slot = not stack
+			stack = stack or self.inv:get_stack("main", 1)
 
-				-- Throw out anything that has no business being in the slot
-				if not self.bdev:is_valid_slot_item(stack) then
-					minetest.log("action", "[laptop] discarded " .. stack:to_string() ..
-							" from the disk slot at " ..
-							minetest.pos_to_string(self.bdev.os.pos))
+			-- Throw out anything that has no business being in the slot
+			if not self.bdev:is_valid_slot_item(stack) then
+				minetest.log("action", "[laptop] discarded " .. stack:to_string() ..
+						" from the disk slot at " ..
+						minetest.pos_to_string(self.bdev.os.pos))
+				if from_slot then
 					self.inv:set_stack("main", 1, "")
-					stack = ItemStack("")
 				end
+				self.stack = nil
+				stack = ItemStack("")
 			end
 			if stack then
 				local def = stack:get_definition()
